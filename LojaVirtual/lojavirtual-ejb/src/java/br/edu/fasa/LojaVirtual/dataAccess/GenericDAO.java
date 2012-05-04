@@ -6,8 +6,9 @@ package br.edu.fasa.LojaVirtual.dataAccess;
 
 import br.edu.fasa.LojaVirtual.domainModel.Repository;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -17,23 +18,33 @@ public class GenericDAO<T> implements Repository<T> {
     	
     private Class type;
     
-    @PersistenceContext(unitName="lojavirtual")
+    private EntityManagerFactory factory;
     private EntityManager manager;
 
     public EntityManager getManager() {
         return manager;
     }
     
+    public EntityTransaction getTransaction() {
+        return getManager().getTransaction();
+    }
+    
     public GenericDAO(Class t) {
             type = t;
+            factory = Persistence.createEntityManagerFactory("lojavirtual");
+            manager = factory.createEntityManager();
     }   
     
     @Override
     public boolean Save(T obj)  {
+        EntityTransaction tran = getTransaction();
         try {
+            tran.begin();
                 getManager().persist(obj);
+                tran.commit();
                 return true;
         } catch (Exception e) {  
+            tran.rollback();
                 e.printStackTrace();
                 return false;          
         }
@@ -41,10 +52,14 @@ public class GenericDAO<T> implements Repository<T> {
 
      @Override
     public boolean Delete(T obj)  {
+         EntityTransaction tran = getTransaction();
             try {
+                tran.begin();
                     getManager().remove(obj);
+                    tran.commit();
                     return true;
             } catch (Exception e) {  
+                tran.rollback();
                 e.printStackTrace();
                 return false;  
         }
