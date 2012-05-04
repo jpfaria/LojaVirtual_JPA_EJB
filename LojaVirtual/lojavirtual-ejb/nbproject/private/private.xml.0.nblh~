@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/C:/Users/petronio/Documents/NetBeansProjects/LojaVirtual/domainModel-ejb/src/java/br/edu/fasa/LojaVirtual/domainModel/Cliente.java</file>
+        <file>file:/C:/Users/petronio/Documents/NetBeansProjects/LojaVirtual/domainModel-ejb/src/java/br/edu/fasa/LojaVirtual/domainModel/Produto.java</file>
+        <file>file:/C:/Users/petronio/Documents/NetBeansProjects/LojaVirtual/domainModel-ejb/src/java/br/edu/fasa/LojaVirtual/domainModel/Venda.java</file>
+        <file>file:/C:/Users/petronio/Documents/NetBeansProjects/LojaVirtual/domainModel-ejb/src/java/br/edu/fasa/LojaVirtual/domainModel/VendaItem.java</file>
+        <file>file:/C:/Users/petronio/Documents/NetBeansProjects/LojaVirtual/domainModel-ejb/src/java/br/edu/fasa/LojaVirtual/dataAccess/GenericDAO.java</file>
+        <file>file:/C:/Users/petronio/Documents/NetBeansProjects/LojaVirtual/domainModel-ejb/src/conf/persistence.xml</file>
+        <file>file:/C:/Users/petronio/Documents/NetBeansProjects/LojaVirtual/domainModel-ejb/src/java/br/edu/fasa/LojaVirtual/dataAccess/ClienteDAO.java</file>
+        <file>file:/C:/Users/petronio/Documents/NetBeansProjects/LojaVirtual/domainModel-ejb/src/java/br/edu/fasa/LojaVirtual/domainModel/ClienteRepository.java</file>
+        <file>file:/C:/Users/petronio/Documents/NetBeansProjects/LojaVirtual/domainModel-ejb/src/java/br/edu/fasa/LojaVirtual/RepositoriosBean.java</file>
+        <file>file:/C:/Users/petronio/Documents/NetBeansProjects/LojaVirtual/domainModel-ejb/src/java/br/edu/fasa/LojaVirtual/domainModel/Repository.java</file>
+        <file>file:/C:/Users/petronio/Documents/NetBeansProjects/LojaVirtual/domainModel-ejb/src/java/br/edu/fasa/LojaVirtual/Repositorios.java</file>
+    </open-files>
+</project-private>
