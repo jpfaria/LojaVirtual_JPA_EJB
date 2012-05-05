@@ -5,6 +5,8 @@
 package br.edu.fasa.LojaVirtual;
 
 import br.edu.fasa.LojaVirtual.domainModel.ClienteRepository;
+import br.edu.fasa.LojaVirtual.domainModel.ProdutoRepository;
+import br.edu.fasa.LojaVirtual.domainModel.VendaRepository;
 import javax.ejb.Remote;
 
 /**
@@ -14,4 +16,6 @@ import javax.ejb.Remote;
 @Remote
 public interface Repositorios {
     ClienteRepository cliente();
+    ProdutoRepository produto();
+    VendaRepository venda();
 }

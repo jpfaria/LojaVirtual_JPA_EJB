@@ -25,34 +25,34 @@ public class GenericDAO<T> implements Repository<T> {
     }
     
     public GenericDAO(Class t) {
-            type = t;
+        type = t;
     }   
     
     @Override
     public boolean Save(T obj)  {
         try {
-                getManager().persist(obj);
-                return true;
+            getManager().persist(obj);
+            return true;
         } catch (Exception e) {  
-                e.printStackTrace();
-                return false;          
+            e.printStackTrace();
+            return false;          
         }
     }
 
      @Override
     public boolean Delete(T obj)  {
-            try {
-                    getManager().remove(obj);
-                    return true;
-            } catch (Exception e) {  
-                e.printStackTrace();
-                return false;  
+        try {
+            getManager().remove(obj);
+            return true;
+        } catch (Exception e) {  
+            e.printStackTrace();
+            return false;  
         }
     }
 
     @Override
     public T Open(Long k)  throws Exception   {
-            return (T)getManager().find(type, k);
+        return (T)getManager().find(type, k);
     }
     
 }

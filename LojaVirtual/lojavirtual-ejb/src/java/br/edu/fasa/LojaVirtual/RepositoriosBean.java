@@ -5,6 +5,8 @@
 package br.edu.fasa.LojaVirtual;
 
 import br.edu.fasa.LojaVirtual.domainModel.ClienteRepository;
+import br.edu.fasa.LojaVirtual.domainModel.ProdutoRepository;
+import br.edu.fasa.LojaVirtual.domainModel.VendaRepository;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 
@@ -21,6 +23,22 @@ public class RepositoriosBean implements Repositorios {
     @Override
     public ClienteRepository cliente() {
         return cli;
+    }
+    
+    @EJB
+    ProdutoRepository pro;
+    
+    @Override
+    public ProdutoRepository produto() {
+        return pro;
+    }
+    
+    @EJB
+    VendaRepository ven;
+    
+    @Override
+    public VendaRepository venda() {
+        return ven;
     }
 
     // Add business logic below. (Right-click in editor and choose
