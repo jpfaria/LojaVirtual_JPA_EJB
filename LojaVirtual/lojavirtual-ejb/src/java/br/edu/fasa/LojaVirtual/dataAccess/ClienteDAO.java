@@ -6,7 +6,9 @@ package br.edu.fasa.LojaVirtual.dataAccess;
 
 import br.edu.fasa.LojaVirtual.domainModel.Cliente;
 import br.edu.fasa.LojaVirtual.domainModel.ClienteRepository;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 
 /**
  *
@@ -19,6 +21,12 @@ public class ClienteDAO
 
     public ClienteDAO() {
         super(Cliente.class);
+    }
+
+    @Override
+    public List<Cliente> getTodos() {
+        Query query = getManager().createQuery("select c from Cliente c");
+        return query.getResultList();
     }
 
     

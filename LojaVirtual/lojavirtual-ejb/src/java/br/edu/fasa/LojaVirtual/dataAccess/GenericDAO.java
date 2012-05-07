@@ -20,7 +20,7 @@ public class GenericDAO<T> implements Repository<T> {
     @PersistenceContext(unitName="lojavirtual")
     private EntityManager manager;
 
-    public EntityManager getManager() {
+    protected EntityManager getManager() {
         return manager;
     }
     
