@@ -25,7 +25,16 @@ public class ClienteDAO
 
     @Override
     public List<Cliente> getTodos() {
-        Query query = getManager().createQuery("select c from Cliente c");
+        Query query = getManager().createQuery("select c from Cliente c order by c.nome");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Cliente> filtrarPorNome(String nome, int start, int qtd) {
+        Query query = getManager().createQuery("select c from Cliente c where c.nome like '%"+nome+"%' order by c.nome");
+        if(start > 0 && qtd> 0){
+            query.setFirstResult(start).setMaxResults(qtd);
+        }
         return query.getResultList();
     }
 

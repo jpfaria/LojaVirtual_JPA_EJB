@@ -80,7 +80,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "br.edu.fasa.LojaVirtual.domainModel.Cliente[ id=" + id + " ]";
+        return nome;
     }
     
 }

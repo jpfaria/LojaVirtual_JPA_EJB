@@ -19,7 +19,7 @@ public class VendaItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToOne(cascade= CascadeType.PERSIST)
+    @ManyToOne(cascade= CascadeType.REFRESH)
     Venda venda;
 
     public Venda getVenda() {

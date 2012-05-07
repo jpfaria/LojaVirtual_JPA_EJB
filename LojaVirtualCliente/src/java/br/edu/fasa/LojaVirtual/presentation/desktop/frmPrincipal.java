@@ -114,7 +114,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuClientesActionPerformed
 
     private void mnuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuProdutosActionPerformed
-        frmProdutos produtos = new frmProdutos();
+        frmProdutos produtos = new frmProdutos(getServiceLocator());
         this.add(produtos);
 
         produtos.setEnabled(true);
@@ -122,7 +122,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuProdutosActionPerformed
 
     private void mnuNovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNovaVendaActionPerformed
-        frmNovaVenda venda = new frmNovaVenda();
+        frmNovaVenda venda = new frmNovaVenda(getServiceLocator());
         this.add(venda);
 
         venda.setEnabled(true);
@@ -130,7 +130,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuNovaVendaActionPerformed
 
     private void mnuListagemVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListagemVendasActionPerformed
-        frmVendas venda = new frmVendas();
+        frmVendas venda = new frmVendas(getServiceLocator());
         this.add(venda);
 
         venda.setEnabled(true);

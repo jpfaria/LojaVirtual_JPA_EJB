@@ -4,17 +4,33 @@
  */
 package br.edu.fasa.LojaVirtual.presentation.desktop;
 
+import br.edu.fasa.LojaVirtual.domainModel.Cliente;
+import br.edu.fasa.LojaVirtual.domainModel.Produto;
+import br.edu.fasa.LojaVirtual.presentation.ServiceLocator;
+import br.edu.fasa.LojaVirtual.presentation.frmLojaVirtual;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author petronio
  */
-public class frmProdutos extends javax.swing.JInternalFrame {
+public class frmProdutos extends frmLojaVirtual<Produto> {
 
     /**
      * Creates new form frmProdutos
      */
-    public frmProdutos() {
+    public frmProdutos(ServiceLocator loc) {
+        super(loc);
         initComponents();
+        atualizaListagem();        
     }
 
     /**
@@ -26,19 +42,317 @@ public class frmProdutos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tabs = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabListagem = new javax.swing.JTable();
+        btnNovoListagem = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtFiltro = new javax.swing.JTextField();
+        btnFiltrar = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtDescricao = new javax.swing.JTextField();
+        txtValor = new javax.swing.JFormattedTextField();
+        jLabel4 = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
+        btnApagar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+
+        setClosable(true);
+
+        tabListagem.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tabListagem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabListagemMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabListagem);
+
+        btnNovoListagem.setText("Novo Produto");
+        btnNovoListagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoListagemActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Filtrar por descrção:");
+
+        btnFiltrar.setText("OK");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(186, 186, 186)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFiltrar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnNovoListagem)))
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFiltrar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnNovoListagem)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        tabs.addTab("Listagem", jPanel1);
+
+        jLabel1.setText("ID:");
+
+        jLabel3.setText("Descrição:");
+
+        jLabel4.setText("Valor:");
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        btnApagar.setText("Apagar");
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(78, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblId)
+                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(btnSalvar)
+                .addGap(60, 60, 60)
+                .addComponent(btnApagar)
+                .addGap(47, 47, 47)
+                .addComponent(btnCancelar)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblId))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnApagar)
+                    .addComponent(btnCancelar))
+                .addGap(36, 36, 36))
+        );
+
+        tabs.addTab("Editar", jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addComponent(tabs)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addComponent(tabs)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+        @Override
+    protected void atualizaListagem(){
+        try {
+            atualizaListagem(getServiceLocator().getRepositorios().produto().getTodos());
+        } catch (NamingException ex) {
+            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+     protected void atualizaListagem(List<Produto> produtos){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Descrição");
+        model.addColumn("Valor");
+
+            for(Produto c : produtos){
+                Vector v = new Vector();
+                v.add(c.getId());
+                v.add(c.getDescricao());
+                v.add(c.getValor());
+                model.addRow(v);
+            }       
+        
+        tabListagem.setModel(model);
+    }
+    
+     @Override
+    protected void atualizaCamposFormulario() {
+        Produto produto = getEntidade();
+        txtDescricao.setText(produto.getDescricao());        
+        txtValor.setText( Double.toString(produto.getValor()));
+        lblId.setText(produto.getId().toString());        
+    }
+     
+    @Override
+    protected void limparCamposFormulario() {
+        txtDescricao.setText("");
+        txtValor.setText("");
+        lblId.setText("");
+        setEntidade(null);
+    }
+    
+    @Override
+    protected void criaEntidadeVazia() {
+         Produto produto = new Produto();
+         setEntidade(produto);
+    }
+
+    @Override
+    protected void atualizaEntidade() {
+        Produto produto = getEntidade();
+        produto.setDescricao(txtDescricao.getText());
+        produto.setValor(Double.parseDouble(txtValor.getText()));        
+    }
+
+    
+    private void tabListagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabListagemMouseClicked
+        // if(evt.getClickCount() == 2){
+        Object id = tabListagem.getModel().getValueAt(tabListagem.getSelectedRow(), 0);
+        try {
+            setEntidade(getServiceLocator().getRepositorios().produto().Open(Long.parseLong(id.toString())));
+            atualizaCamposFormulario();
+            tabs.setSelectedIndex(1);
+        } catch (NamingException ex) {
+            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //}
+
+    }//GEN-LAST:event_tabListagemMouseClicked
+
+    private void btnNovoListagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoListagemActionPerformed
+        limparCamposFormulario();
+        tabs.setSelectedIndex(1);
+    }//GEN-LAST:event_btnNovoListagemActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        try {
+            atualizaListagem(getServiceLocator().getRepositorios().produto().filtrarPorDescricao(txtFiltro.getText(), 0, 0));
+        } catch (NamingException ex) {
+            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        try {
+            salvar(getServiceLocator().getRepositorios().produto());
+        } catch (NamingException ex) {
+            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+        try {
+            apagar(getServiceLocator().getRepositorios().produto());
+            tabs.setSelectedIndex(0);
+        } catch (NamingException ex) {
+            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnApagarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        tabs.setSelectedIndex(0);
+        limparCamposFormulario();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApagar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnFiltrar;
+    private javax.swing.JButton btnNovoListagem;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JTable tabListagem;
+    private javax.swing.JTabbedPane tabs;
+    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JTextField txtFiltro;
+    private javax.swing.JFormattedTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

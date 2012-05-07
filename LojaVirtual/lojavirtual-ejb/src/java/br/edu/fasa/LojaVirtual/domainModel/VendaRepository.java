@@ -4,6 +4,7 @@
  */
 package br.edu.fasa.LojaVirtual.domainModel;
 
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -12,5 +13,6 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface VendaRepository extends Repository<Venda> {
-    
+    List<Venda> getTodos();
+    List<Venda> filtrarPorNomeCliente(String nome, int start, int qtd);
 }

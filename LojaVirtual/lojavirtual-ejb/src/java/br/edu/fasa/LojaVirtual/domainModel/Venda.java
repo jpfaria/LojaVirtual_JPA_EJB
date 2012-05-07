@@ -6,6 +6,7 @@ package br.edu.fasa.LojaVirtual.domainModel;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -21,16 +22,21 @@ public class Venda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToOne(cascade= CascadeType.PERSIST)
+    @ManyToOne(cascade= CascadeType.REFRESH)
     Cliente cliente;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="data")
     Date data;
     
-    @OneToMany(cascade= CascadeType.ALL,fetch= FetchType.LAZY)
+    @OneToMany(cascade= CascadeType.ALL, fetch= FetchType.EAGER)
     @JoinColumn(name="venda")
     List<VendaItem> itens;
+    
+    public Venda(){
+        itens = new LinkedList<VendaItem>();
+    }
+            
 
     public List<VendaItem> getItens() {
         return itens;
@@ -62,6 +68,20 @@ public class Venda implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public void addItem(Produto p, int q){
+        VendaItem it = new VendaItem();
+        it.setVenda(this);
+        it.setProduto(p);
+        it.setQuantidade(q);
+        if(!itens.contains(it))
+            itens.add(it);
+    }
+    
+    public void removeItem(VendaItem it){
+        if(itens.contains(it))
+            itens.remove(it);
     }
 
     @Override

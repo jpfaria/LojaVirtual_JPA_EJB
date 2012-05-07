@@ -4,17 +4,65 @@
  */
 package br.edu.fasa.LojaVirtual.presentation.desktop;
 
+import br.edu.fasa.LojaVirtual.domainModel.Cliente;
+import br.edu.fasa.LojaVirtual.domainModel.Venda;
+import br.edu.fasa.LojaVirtual.presentation.ServiceLocator;
+import br.edu.fasa.LojaVirtual.presentation.frmLojaVirtual;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+
 /**
  *
  * @author petronio
  */
-public class frmNovaVenda extends javax.swing.JInternalFrame {
+public class frmNovaVenda extends frmLojaVirtual<Venda> {
 
     /**
      * Creates new form frmNovaVenda
      */
-    public frmNovaVenda() {
+    public frmNovaVenda(ServiceLocator loc) {
+        super(loc);
         initComponents();
+        atualizaListagem();        
+        try {
+            cbxClientes.removeAllItems();
+            for(Cliente c : getServiceLocator().getRepositorios().cliente().getTodos())
+                cbxClientes.addItem(c);
+        } catch (NamingException ex) {
+            Logger.getLogger(frmVendas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    protected void atualizaListagem(){
+     
+    }
+    
+     @Override
+    protected void atualizaCamposFormulario() {
+      
+    }
+     
+    @Override
+    protected void limparCamposFormulario() {
+        setEntidade(null);
+    }
+    
+    @Override
+    protected void criaEntidadeVazia() {
+         Venda produto = new Venda();
+         setEntidade(produto);
+    }
+
+    @Override
+    protected void atualizaEntidade() {
+        Venda venda = getEntidade();       
+        venda.setCliente((Cliente)cbxClientes.getSelectedItem());
+        Calendar cal = Calendar.getInstance();
+        venda.setData(cal.getTime());
     }
 
     /**
@@ -26,19 +74,72 @@ public class frmNovaVenda extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        cbxClientes = new javax.swing.JComboBox();
+        btnCriar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+
+        setClosable(true);
+
+        jLabel1.setText("Escolha o cliente:");
+
+        cbxClientes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnCriar.setText("Criar");
+        btnCriar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCriar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cbxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCriar)
+                    .addComponent(btnCancelar))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
+        try {
+            salvar(getServiceLocator().getRepositorios().venda());
+        } catch (NamingException ex) {
+            Logger.getLogger(frmNovaVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCriarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCriar;
+    private javax.swing.JComboBox cbxClientes;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,11 +10,11 @@ import br.edu.fasa.LojaVirtual.presentation.frmLojaVirtual;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -46,6 +46,9 @@ public class frmClientes extends frmLojaVirtual<Cliente> {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabListagem = new javax.swing.JTable();
         btnNovoListagem = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtFiltro = new javax.swing.JTextField();
+        btnFiltrar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
@@ -55,6 +58,7 @@ public class frmClientes extends frmLojaVirtual<Cliente> {
         jLabel4 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         btnApagar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Edição de Clientes");
@@ -84,23 +88,48 @@ public class frmClientes extends frmLojaVirtual<Cliente> {
             }
         });
 
+        jLabel2.setText("Filtrar por nome:");
+
+        btnFiltrar.setText("OK");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnNovoListagem)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(186, 186, 186)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFiltrar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnNovoListagem)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFiltrar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnNovoListagem)
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addGap(0, 16, Short.MAX_VALUE))
         );
 
         tabs.addTab("Listagem", jPanel1);
@@ -122,6 +151,13 @@ public class frmClientes extends frmLojaVirtual<Cliente> {
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApagarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -150,6 +186,8 @@ public class frmClientes extends frmLojaVirtual<Cliente> {
                 .addComponent(btnSalvar)
                 .addGap(60, 60, 60)
                 .addComponent(btnApagar)
+                .addGap(62, 62, 62)
+                .addComponent(btnCancelar)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -170,7 +208,8 @@ public class frmClientes extends frmLojaVirtual<Cliente> {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
-                    .addComponent(btnApagar))
+                    .addComponent(btnApagar)
+                    .addComponent(btnCancelar))
                 .addGap(36, 36, 36))
         );
 
@@ -224,28 +263,47 @@ public class frmClientes extends frmLojaVirtual<Cliente> {
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         try {
             apagar(getServiceLocator().getRepositorios().cliente());
+            tabs.setSelectedIndex(0);
         } catch (NamingException ex) {
             Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnApagarActionPerformed
 
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+         try {
+               atualizaListagem(getServiceLocator().getRepositorios().cliente().filtrarPorNome(txtFiltro.getText(), 0, 0));
+         } catch (NamingException ex) {
+            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        tabs.setSelectedIndex(0);
+        limparCamposFormulario();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     @Override
     protected void atualizaListagem(){
+        try {
+            atualizaListagem(getServiceLocator().getRepositorios().cliente().getTodos());
+        } catch (NamingException ex) {
+            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+     protected void atualizaListagem(List<Cliente> clientes){
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Nome");
         model.addColumn("Data Nascimento");
-        try {
-            for(Cliente c : getServiceLocator().getRepositorios().cliente().getTodos()){
+
+            for(Cliente c : clientes){
                 Vector v = new Vector();
                 v.add(c.getId());
                 v.add(c.getNome());
                 v.add(c.getDataNascimento());
                 model.addRow(v);
-            }
-        } catch (NamingException ex) {
-            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            }       
         
         tabListagem.setModel(model);
     }
@@ -288,9 +346,12 @@ public class frmClientes extends frmLojaVirtual<Cliente> {
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApagar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnNovoListagem;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
@@ -300,6 +361,7 @@ public class frmClientes extends frmLojaVirtual<Cliente> {
     private javax.swing.JTable tabListagem;
     private javax.swing.JTabbedPane tabs;
     private javax.swing.JFormattedTextField txtDataAniversario;
+    private javax.swing.JTextField txtFiltro;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

@@ -71,7 +71,7 @@ public class Produto implements Serializable {
 
     @Override
     public String toString() {
-        return "br.edu.fasa.LojaVirtual.domainModel.Produto[ id=" + id + " ]";
+        return descricao;
     }
     
 }

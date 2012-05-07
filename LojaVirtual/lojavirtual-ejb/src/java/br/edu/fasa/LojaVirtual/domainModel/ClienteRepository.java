@@ -15,5 +15,7 @@ import javax.ejb.Remote;
 public interface ClienteRepository extends Repository<Cliente> {
 
     List<Cliente> getTodos();
+
+    List<Cliente> filtrarPorNome(String nome, int start, int qtd);
     
 }

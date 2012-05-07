@@ -4,7 +4,6 @@
  */
 package br.edu.fasa.LojaVirtual.presentation;
 
-import br.edu.fasa.LojaVirtual.domainModel.Cliente;
 import br.edu.fasa.LojaVirtual.domainModel.Repository;
 import br.edu.fasa.LojaVirtual.presentation.desktop.frmClientes;
 import java.util.logging.Level;
@@ -20,6 +19,7 @@ public abstract class frmLojaVirtual<T> extends javax.swing.JInternalFrame {
     public static final String TITULO = "Loja Virtual - LPII - FASA";
     
     private T entidade;
+    private ServiceLocator locator;
 
     protected T getEntidade() {
         return entidade;
@@ -29,8 +29,6 @@ public abstract class frmLojaVirtual<T> extends javax.swing.JInternalFrame {
         this.entidade = entidade;
     }
     
-    private ServiceLocator locator;
-
     protected ServiceLocator getServiceLocator() {
         return locator;
     }
@@ -51,8 +49,7 @@ public abstract class frmLojaVirtual<T> extends javax.swing.JInternalFrame {
             try {
                 T entidade = getEntidade();
                 if(entidade == null)
-                   criaEntidadeVazia();
-                
+                   criaEntidadeVazia();                
                 atualizaEntidade();            
                 repo.Save(entidade);
                 JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!", TITULO, 1);
@@ -73,6 +70,7 @@ public abstract class frmLojaVirtual<T> extends javax.swing.JInternalFrame {
                 repo.Delete(entidade);
                 JOptionPane.showMessageDialog(null, "Dados apagados com sucesso!", TITULO, 1);
                 atualizaListagem();
+                limparCamposFormulario();
             } catch (Exception ex) {
                 Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Aconteceu um erro ao tentar apagar os dados! Consulte o log de erros.", TITULO, 1);
