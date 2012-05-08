@@ -22,7 +22,7 @@ public class Venda implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToOne(cascade= CascadeType.REFRESH)
+    @ManyToOne(cascade= CascadeType.MERGE, fetch= FetchType.EAGER)
     Cliente cliente;
     
     @Temporal(TemporalType.TIMESTAMP)

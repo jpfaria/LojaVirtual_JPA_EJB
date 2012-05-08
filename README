@@ -1,0 +1,7 @@
+O projeto da Loja Virtual utilizando Java Enterprise Edition ( JPA + EJB + JSF ). Ele é composto de dois projetos:
+ 
+- Loja Virtual : Um aplicativo Enterprise que possui um módulo EJB chamado lojavirtual-ejb e o módulo lojavirtual-jsf. Nele há 3 pacotes referentes às camadas de dataAccess e domainModel e códigos comuns às duas.
+
+- Loja Virtual Cliente : Um aplicativo cliente do Loja Virtual que contém a camada de presentation da aplicação e invoca os EJB's do aplicativo Loja Virtual.
+
+O sistema está configurado para rodar no GlassFish 3.2 e utiliza como sgbd o Java DB (Derby).
