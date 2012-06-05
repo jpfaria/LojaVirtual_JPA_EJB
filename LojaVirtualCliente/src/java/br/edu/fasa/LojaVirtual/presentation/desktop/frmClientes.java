@@ -326,9 +326,10 @@ public class frmClientes extends frmLojaVirtual<Cliente> {
     }
     
     @Override
-    protected void criaEntidadeVazia() {
+    protected Cliente criaEntidadeVazia() {
          Cliente cliente = new Cliente();
          setEntidade(cliente);
+         return cliente;
     }
 
     @Override

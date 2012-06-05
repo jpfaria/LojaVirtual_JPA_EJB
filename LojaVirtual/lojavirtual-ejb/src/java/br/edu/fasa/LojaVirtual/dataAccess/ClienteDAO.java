@@ -19,6 +19,11 @@ public class ClienteDAO
     extends GenericDAO<Cliente>
     implements ClienteRepository {
 
+    @Override
+    protected Long getID(Cliente obj) {
+        return obj.getId();
+    }
+
     public ClienteDAO() {
         super(Cliente.class);
     }

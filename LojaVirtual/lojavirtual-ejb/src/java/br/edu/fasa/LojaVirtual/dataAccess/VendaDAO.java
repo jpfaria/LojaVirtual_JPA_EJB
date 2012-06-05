@@ -23,6 +23,11 @@ public class VendaDAO
     public VendaDAO() {
         super(Venda.class);
     }
+    
+    @Override
+    protected Long getID(Venda obj) {
+        return obj.getId();
+    }
 
     @Override
     public List<Venda> getTodos() {

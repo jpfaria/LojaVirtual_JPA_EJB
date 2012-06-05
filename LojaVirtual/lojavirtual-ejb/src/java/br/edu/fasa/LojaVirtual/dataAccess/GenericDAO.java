@@ -7,13 +7,14 @@ package br.edu.fasa.LojaVirtual.dataAccess;
 import br.edu.fasa.LojaVirtual.domainModel.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author petronio
  */
-public class GenericDAO<T> implements Repository<T> {
+public abstract class GenericDAO<T> implements Repository<T> {
     	
     private Class type;
     
@@ -26,12 +27,14 @@ public class GenericDAO<T> implements Repository<T> {
     
     public GenericDAO(Class t) {
         type = t;
+       // manager.setFlushMode(FlushModeType.COMMIT);
     }   
     
     @Override
     public boolean Save(T obj)  {
         try {
-            getManager().persist(obj);
+            getManager().merge(obj);
+            getManager().flush();
             return true;
         } catch (Exception e) {  
             e.printStackTrace();
@@ -42,7 +45,8 @@ public class GenericDAO<T> implements Repository<T> {
      @Override
     public boolean Delete(T obj)  {
         try {
-            getManager().remove(obj);
+            
+            getManager().remove(getManager().getReference(type, getID(obj)));
             return true;
         } catch (Exception e) {  
             e.printStackTrace();
@@ -54,5 +58,7 @@ public class GenericDAO<T> implements Repository<T> {
     public T Open(Long k)  throws Exception   {
         return (T)getManager().find(type, k);
     }
+    
+    protected abstract Long getID(T obj);
     
 }

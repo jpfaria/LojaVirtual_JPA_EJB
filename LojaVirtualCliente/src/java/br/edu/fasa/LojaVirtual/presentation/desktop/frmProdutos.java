@@ -271,9 +271,10 @@ public class frmProdutos extends frmLojaVirtual<Produto> {
     }
     
     @Override
-    protected void criaEntidadeVazia() {
+    protected Produto criaEntidadeVazia() {
          Produto produto = new Produto();
          setEntidade(produto);
+         return produto;
     }
 
     @Override

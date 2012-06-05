@@ -77,7 +77,9 @@ public class VendaItem implements Serializable {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-        return true;
+        
+        
+        return this.venda.equals(other.venda) && this.produto.equals(other.produto);
     }
 
     @Override

@@ -17,6 +17,14 @@ import javax.ejb.Singleton;
 @Singleton
 public class RepositoriosBean implements Repositorios {
 
+    static RepositoriosBean instance;
+    
+    public static RepositoriosBean getInstance(){
+        if(instance == null)
+            instance = new RepositoriosBean();
+        return instance;
+    }
+    
     @EJB
     ClienteRepository cli;
     
