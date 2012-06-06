@@ -1,12 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+
+        <title>Editar Cliente</title>
     </h:head>
+    <f:metadata>
+            <f:viewParam name="id" value="#{cliente.id}"/>
+    </f:metadata>
     <h:body>
-        Hello from Facelets
+        <h:form>
+            ID: <h:outputText id="lblId" value="#{cliente.id}" />
+            <br />
+            Nome: <h:inputText id="txtNome" value="#{cliente.nome}" />
+            <br />
+            Data Nascimento: <h:inputText id="txtData" value="#{cliente.data}" />
+            <br />
+            <h:commandButton id="btnSalvar" value="Salvar" action="#{cliente.salvar()}" />
+            <h:commandButton id="btnApagar" value="Apagar" action="#{cliente.apagar()}" />
+        </h:form>
     </h:body>
 </html>
 
