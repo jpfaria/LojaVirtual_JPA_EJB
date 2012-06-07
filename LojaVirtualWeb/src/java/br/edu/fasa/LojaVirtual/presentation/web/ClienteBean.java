@@ -24,8 +24,7 @@ public class ClienteBean implements Serializable {
     ClienteRepository ejb;
     
     Cliente cliente;
-    List<Cliente> listagem;
-
+    
     public Cliente getCliente() {
         return cliente;
     }
@@ -37,19 +36,8 @@ public class ClienteBean implements Serializable {
         this.data = cliente.getDataNascimento().toString();
     }
 
-    public List<Cliente> getListagem() {
-        if(listagem == null)
-            listagem = ejb.getTodos();
-        return listagem;
-    }
-
-    public void setListagem(List<Cliente> listagem) {
-        this.listagem = listagem;
-    }
     
-    
-    
-    String id, nome, data;
+    String id, nome, data, erro;
 
     public String getData() {
         return data;
@@ -64,7 +52,7 @@ public class ClienteBean implements Serializable {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(String id)  throws Exception {
         this.id = id;
         abrir();
     }
@@ -77,25 +65,19 @@ public class ClienteBean implements Serializable {
         this.nome = nome;
     }
     
-    private void checarClienteAberto() {
-        if(cliente == null && id.length() > 0)
+    private void checarClienteAberto()  throws Exception  {
+        if(id.length() > 0)
             abrir();
         else
             cliente = new Cliente();
     }
     
-    public void abrir(){
-        try {
-            long cod = Long.parseLong(id);
+    public void abrir() throws Exception {
+        long cod = Long.parseLong(id);
             setCliente(ejb.Open(cod));
-        }
-        catch(Exception e){
-            
-        }
-        
     }
     
-    public void salvar(){
+    public void salvar() throws Exception {
         checarClienteAberto();
         
         cliente.setNome(nome);
@@ -104,15 +86,22 @@ public class ClienteBean implements Serializable {
         ejb.Save(cliente);
     }
     
-    public void apagar(){
-        checarClienteAberto();
+    public String apagar() throws Exception {
+        checarClienteAberto();        
         ejb.Delete(cliente);
+        setId("");
+        setNome("");
+        setData("");
+        return "faces/listarClientes.xhtml";
     }
     
     /**
      * Creates a new instance of ClienteBean
      */
     public ClienteBean() {
-        
+        this.id = "";
+        this.nome = "";
+        this.data = "";
+        this.data = "";
     }
 }

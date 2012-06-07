@@ -5,7 +5,6 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-
         <title>Editar Cliente</title>
     </h:head>
     <f:metadata>
@@ -13,14 +12,13 @@
     </f:metadata>
     <h:body>
         <h:form>
-            ID: <h:outputText id="lblId" value="#{cliente.id}" />
-            <br />
-            Nome: <h:inputText id="txtNome" value="#{cliente.nome}" />
-            <br />
-            Data Nascimento: <h:inputText id="txtData" value="#{cliente.data}" />
-            <br />
-            <h:commandButton id="btnSalvar" value="Salvar" action="#{cliente.salvar()}" />
-            <h:commandButton id="btnApagar" value="Apagar" action="#{cliente.apagar()}" />
+            <table>
+                <tr><td>ID:</td><td><h:outputText id="lblId" value="#{cliente.id}" /></td></tr>
+                <tr><td>Nome:</td><td><h:inputText id="txtNome" value="#{cliente.nome}" /></td></tr>
+                <tr><td>Data Nascimento:</td><td><h:inputText id="txtData" value="#{cliente.data}" /></td></tr>
+                <tr><td><h:commandButton id="btnSalvar" value="Salvar" action="#{cliente.salvar()}" /></td><td>
+                <h:commandButton id="btnApagar" value="Apagar" action="#{cliente.apagar()}" /></td></tr>
+            </table>
         </h:form>
     </h:body>
 </html>

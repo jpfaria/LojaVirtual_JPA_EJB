@@ -7,9 +7,14 @@
     <h:head>
         <title>Listagem de Clientes</title>
     </h:head>
+    
     <h:body>
         <h1>Listagem de Clientes</h1>
-        <h:dataTable id="tblClientes" value="#{cliente.listagem}" var="item">
+        <div id="filtros">
+            Filtrar por nome: <h:inputText id="txtNome" value="#{clienteListagem.nome}" /> 
+            <h:commandButton id="btnFiltrar" action="#{clienteListagem.atualizaListagem()}" value="Filtrar" />
+        </div>
+        <h:dataTable id="tblClientes"  value="#{clienteListagem.listagem}" var="item">
             <h:column > 
                 <f:facet name="header"> 
                     <h:outputText value="ID" /> 
@@ -29,6 +34,7 @@
                 <a href="faces/editarCliente.xhtml?id=#{item.id}">Editar</a>
             </h:column> 
         </h:dataTable>
+        <a href="faces/editarCliente.xhtml">Novo Cliente</a>
     </h:body>
 </html>
 

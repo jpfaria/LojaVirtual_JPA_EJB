@@ -1,0 +1,21 @@
+/* 
+    Document   : estilos
+    Created on : 07/06/2012, 00:30:31
+    Author     : petronio
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.menu {
+    display: inline-block; 
+    height: 180px; 
+    width: 180px; 
+    border: blue;
+    border-width: 1px; 
+    float: left;
+}
+
