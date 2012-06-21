@@ -23,6 +23,13 @@ import javax.persistence.TemporalType;
 @Table(name="Clientes")
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    public Cliente() {
+        this.id = 0L;
+        this.nome = "";
+        this.dataNascimento = null;
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

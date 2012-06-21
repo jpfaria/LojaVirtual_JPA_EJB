@@ -1,23 +1,24 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
     <h:head>
         <title>Loja Virtual - LPII</title>
     </h:head>
     <h:body>
-        <div class="menu">
-            <h1>Gerenciar Clientes</h1>
-            <a href="faces/listarClientes.xhtml">Listar Clientes</a>
-        </div>
-        <div class="menu">
-            <h1>Gerenciar Produtos</h1>
-            <a href="faces/listarClientes.xhtml">Listar Clientes</a>
-        </div>
-        <div class="menu">
-            <h1>Gerenciar Vendas</h1>
-            <a href="faces/listarClientes.xhtml">Listar Clientes</a>
-        </div>
+        <ui:include src="cabecalho.xhtml" />
+        <h:form>
+            <p:breadCrumb>  
+                <p:menuitem value="Principal" url="/" />                
+            </p:breadCrumb>
+            
+             <p:panel header="Gerenciamento de Clientes">  
+                <h:outputText value="Pesquise e gerencie clientes com facilidade" />  
+            </p:panel>  
+        </h:form>
     </h:body>
 </html>
 

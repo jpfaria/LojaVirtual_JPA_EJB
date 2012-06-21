@@ -4,42 +4,44 @@
  */
 package br.edu.fasa.LojaVirtual.presentation.web;
 
-import br.edu.fasa.LojaVirtual.domainModel.Cliente;
-import br.edu.fasa.LojaVirtual.domainModel.ClienteRepository;
+import br.edu.fasa.LojaVirtual.domainModel.Produto;
+import br.edu.fasa.LojaVirtual.domainModel.ProdutoRepository;
+import java.awt.event.ActionEvent;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.event.ActionEvent;
 
 /**
  *
  * @author petronio
  */
-@Named(value = "cliente")
+@Named(value = "produto")
 @SessionScoped
-public class ClienteBean implements Serializable {
+public class ProdutoBean implements Serializable {
 
-
-    @EJB
-    ClienteRepository ejb;
+    /**
+     * Creates a new instance of ProdutoBean
+     */
+        
+        @EJB
+        ProdutoRepository ejb;
+        
+        Produto produto;
     
-    Cliente cliente;
-    
-    public Cliente getCliente() {
-        return cliente;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-        this.id = cliente.getId().toString();
-        this.nome = cliente.getNome();
-        //this.data = cliente.getDataNascimento().toString();
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+        this.id = produto.getId().toString();
+        this.nome = produto.getDescricao();
+        //this.data = produto.getDataNascimento().toString();
     }
     
-    List<Cliente> listagem;
+    List<Produto> listagem;
 
     String id, nome, erro, filtro, mensagem;
 
@@ -50,16 +52,7 @@ public class ClienteBean implements Serializable {
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
     }
-    Date data;
-
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-    
+       
 
     public String getId() {
         return id;
@@ -93,7 +86,7 @@ public class ClienteBean implements Serializable {
         this.nome = nome;
     }
     
-     public List<Cliente> getListagem() {
+     public List<Produto> getListagem() {
         if(listagem == null)
             atualizaListagem();
         return listagem;
@@ -103,53 +96,53 @@ public class ClienteBean implements Serializable {
         if(filtro.length()==0)
             listagem = ejb.getTodos();
         else
-            listagem = ejb.filtrarPorNome(filtro, 0, 100);
+            listagem = ejb.filtrarPorDescricao(filtro, 0, 100);
     }
 
-    public void setListagem(List<Cliente> listagem) {
+    public void setListagem(List<Produto> listagem) {
         this.listagem = listagem;
     }
     
-    private void checarClienteAberto()  throws Exception  {
+    private void checarProdutoAberto()  throws Exception  {
         if(id.length() > 0 && id != "0")
             abrir();
         else
-            cliente = new Cliente();
+            produto = new Produto();
     }
     
      public String editar() throws Exception  {
          abrir();
-        return "faces/editarCliente.xhtml";
+        return "faces/editarProduto.xhtml";
      }
      
      public String listar() throws Exception  {
          atualizaListagem();
-        return "faces/listarClientes.xhtml";
+        return "faces/listarProdutos.xhtml";
      }
      
      public String novo() throws Exception   {
         limparCampos();
-        return "faces/editarCliente.xhtml";
+        return "faces/editarProduto.xhtml";
      }
     
     public void abrir() throws Exception {
         if(id.length() > 0 && id != "0"){
             long cod = Long.parseLong(id);
-            setCliente(ejb.Open(cod));
+            setProduto(ejb.Open(cod));
         }
     }
     
     public void salvar() throws Exception {
         try {
-            checarClienteAberto();
-            cliente.setNome(nome);
-            cliente.setDataNascimento(data);
+            checarProdutoAberto();
+            produto.setDescricao(nome);
+            //produto.setDataNascimento(data);
 
-            ejb.Save(cliente);
-            mensagem = "Cliente salvo com sucesso!";
+            ejb.Save(produto);
+            mensagem = "Produto salvo com sucesso!";
         }
         catch(Exception ex) {
-            mensagem = "Houve um erro ao tentar salvar o cliente! Consulte o log do sistema!";                            
+            mensagem = "Houve um erro ao tentar salvar o produto! Consulte o log do sistema!";                            
         }
     }
     
@@ -159,15 +152,15 @@ public class ClienteBean implements Serializable {
     
     public String apagar() throws Exception {
         try {
-            checarClienteAberto();             
-            ejb.Delete(cliente);
+            checarProdutoAberto();             
+            ejb.Delete(produto);
             limparCampos();
             atualizaListagem();
-            mensagem = "Cliente removido com sucesso!";                
-            return "faces/listarClientes.xhtml";
+            mensagem = "Produto removido com sucesso!";                
+            return "faces/listarProdutos.xhtml";
         }
         catch(Exception ex) {
-            mensagem = "Houve um erro ao tentar apagar o cliente! Consulte o log do sistema!";                
+            mensagem = "Houve um erro ao tentar apagar o produto! Consulte o log do sistema!";                
             return "";
         }
     }
@@ -175,19 +168,18 @@ public class ClienteBean implements Serializable {
     private void limparCampos() throws Exception {
         setId("");
         setNome("");
-        setData(null);
     }
     
     /**
-     * Creates a new instance of ClienteBean
+     * Creates a new instance of ProdutoBean
      */
     
-    public ClienteBean() {
+    public ProdutoBean() {
         this.id = "";
         this.nome = "";
-        this.data = null;
         this.filtro = "";
         this.mensagem = "";
     }
+    
     
 }

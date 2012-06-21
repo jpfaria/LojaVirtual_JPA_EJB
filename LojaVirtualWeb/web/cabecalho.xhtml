@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:form>
+        <h1>Loja Virtual</h1>
+        <p:menubar>  
+            <p:submenu label="Sistema" icon="ui-icon-document">  
+                <p:menuitem value="Sair" url="#" />  
+                <p:separator />  
+                <p:menuitem value="Sobre" url="#" />  
+            </p:submenu>  
+
+            <p:submenu label="Cadastros" icon="ui-icon-pencil">  
+                <p:menuitem value="Clientes" url="faces/listarClientes.xhtml" icon="ui-icon-arrowreturnthick-1-w" />  
+                <p:menuitem value="Produtos" url="faces/listarProdutos.xhtml" icon="ui-icon-arrowreturnthick-1-e" />  
+            </p:submenu>  
+
+            <p:submenu label="Vendas" icon="ui-icon-help">  
+                <p:menuitem value="Listagem de Vendas" url="#" />  
+                <p:menuitem value="Nova Venda" url="#" />              
+            </p:submenu>  
+
+            <p:menuitem value="Sair" url="http://www.primefaces.org" icon="ui-icon-close" />  
+        </p:menubar>  
+    </h:form>
+</html> 
+
