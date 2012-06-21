@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title>Listagem de Vendas</title>
+    </h:head>
+    
+    <h:body>
+        <ui:include src="cabecalho.xhtml" />
+        <h:form>
+            <p:breadCrumb>  
+                <p:menuitem value="Principal" url="/" />
+                <p:menuitem value="Gerenciar vendas" url="#" />  
+            </p:breadCrumb> 
+            
+            <p:dataTable id="tblvendas"  value="#{venda.listagem}" var="item">
+                <f:facet name="header">                      
+                    <h:commandLink value="Novo venda" action="#{venda.novo()}" />
+                </f:facet>
+                <p:column sortBy="#{item.id}" > 
+                    <f:facet name="header"> 
+                        <h:outputText value="ID" /> 
+                    </f:facet> 
+                    <h:outputText value="#{item.id}"/> 
+                </p:column> 
+                <p:column sortBy="#{item.descricao}" style="width: 500px"> 
+                    <f:facet name="header"> 
+                    <h:outputText value="Nome"/> 
+                    </f:facet> 
+                    <h:outputText value="#{item.descricao}"/> 
+                </p:column> 
+                <p:column> 
+                    <h:commandLink value="Editar" action="#{venda.editar()}">
+                        <f:setPropertyActionListener target="#{venda.id}" value="#{item.id}" />
+                    </h:commandLink>
+                </p:column> 
+                <p:column>                   
+                    <h:commandLink value="Apagar" action="#{venda.apagar()}" onclick="return confirm('Deseja realmente deletar o venda?');">
+                        <f:setPropertyActionListener target="#{venda.id}" value="#{item.id}" />
+                    </h:commandLink>
+                </p:column>
+                <f:facet name="footer">  
+                    Total: #{venda.listagem.size()}.  
+                </f:facet>
+            </p:dataTable>            
+        </h:form>
+    </h:body>
+</html>
+
