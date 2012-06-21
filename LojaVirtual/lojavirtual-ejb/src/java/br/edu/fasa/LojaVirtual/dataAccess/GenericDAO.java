@@ -6,8 +6,6 @@ package br.edu.fasa.LojaVirtual.dataAccess;
 
 import br.edu.fasa.LojaVirtual.domainModel.Repository;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -27,7 +25,6 @@ public abstract class GenericDAO<T> implements Repository<T> {
     
     public GenericDAO(Class t) {
         type = t;
-       // manager.setFlushMode(FlushModeType.COMMIT);
     }   
     
     @Override

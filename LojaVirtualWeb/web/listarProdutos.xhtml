@@ -7,7 +7,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.prime.com.tr/ui">
     <h:head>
-        <title>Listagem de Clientes</title>
+        <title>Listagem de Produtos</title>
     </h:head>
     
     <h:body>
@@ -15,14 +15,14 @@
         <h:form>
             <p:breadCrumb>  
                 <p:menuitem value="Principal" url="/" />
-                <p:menuitem value="Gerenciar Clientes" url="#" />  
+                <p:menuitem value="Gerenciar Produtos" url="#" />  
             </p:breadCrumb> 
             
-            <p:dataTable id="tblClientes"  value="#{cliente.listagem}" var="item">
+            <p:dataTable id="tblProdutos"  value="#{produto.listagem}" var="item">
                 <f:facet name="header">                      
-                    Filtrar por nome: <p:inputText id="txtNome" value="#{cliente.filtro}" /> 
-                    <p:commandButton id="btnFiltrar" action="#{cliente.atualizaListagem()}" value="Filtrar" />
-                    <h:commandLink value="Novo Cliente" action="#{cliente.novo()}" />
+                    Filtrar por nome: <p:inputText id="txtNome" value="#{produto.filtro}" /> 
+                    <p:commandButton id="btnFiltrar" action="#{produto.atualizaListagem()}" value="Filtrar" />
+                    <h:commandLink value="Novo produto" action="#{produto.novo()}" />
                 </f:facet>
                 <p:column sortBy="#{item.id}" > 
                     <f:facet name="header"> 
@@ -30,24 +30,24 @@
                     </f:facet> 
                     <h:outputText value="#{item.id}"/> 
                 </p:column> 
-                <p:column sortBy="#{item.nome}" style="width: 500px"> 
+                <p:column sortBy="#{item.descricao}" style="width: 500px"> 
                     <f:facet name="header"> 
                     <h:outputText value="Nome"/> 
                     </f:facet> 
-                    <h:outputText value="#{item.nome}"/> 
+                    <h:outputText value="#{item.descricao}"/> 
                 </p:column> 
                 <p:column> 
-                    <h:commandLink value="Editar" action="#{cliente.editar()}">
-                        <f:setPropertyActionListener target="#{cliente.id}" value="#{item.id}" />
+                    <h:commandLink value="Editar" action="#{produto.editar()}">
+                        <f:setPropertyActionListener target="#{produto.id}" value="#{item.id}" />
                     </h:commandLink>
                 </p:column> 
                 <p:column>                   
-                    <h:commandLink value="Apagar" action="#{cliente.apagar()}" onclick="return confirm('Deseja realmente deletar o cliente?');">
-                        <f:setPropertyActionListener target="#{cliente.id}" value="#{item.id}" />
+                    <h:commandLink value="Apagar" action="#{produto.apagar()}" onclick="return confirm('Deseja realmente deletar o produto?');">
+                        <f:setPropertyActionListener target="#{produto.id}" value="#{item.id}" />
                     </h:commandLink>
                 </p:column>
                 <f:facet name="footer">  
-                    Total: #{cliente.listagem.size()}.  
+                    Total: #{produto.listagem.size()}.  
                 </f:facet>
             </p:dataTable>            
         </h:form>

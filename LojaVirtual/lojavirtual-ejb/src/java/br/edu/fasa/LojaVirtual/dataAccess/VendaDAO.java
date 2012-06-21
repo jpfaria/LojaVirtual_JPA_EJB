@@ -4,7 +4,6 @@
  */
 package br.edu.fasa.LojaVirtual.dataAccess;
 
-import br.edu.fasa.LojaVirtual.domainModel.Produto;
 import br.edu.fasa.LojaVirtual.domainModel.Venda;
 import br.edu.fasa.LojaVirtual.domainModel.VendaRepository;
 import java.util.List;

@@ -6,13 +6,13 @@ package br.edu.fasa.LojaVirtual;
 
 import br.edu.fasa.LojaVirtual.domainModel.Cliente;
 import br.edu.fasa.LojaVirtual.domainModel.Venda;
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 /**
  *
  * @author petronio
  */
-@Local
+@Remote
 public interface Servicos {
 
     Venda criarVenda(Cliente cliente);
