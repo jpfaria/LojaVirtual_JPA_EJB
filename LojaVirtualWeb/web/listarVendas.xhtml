@@ -28,19 +28,20 @@
                     </f:facet> 
                     <h:outputText value="#{item.id}"/> 
                 </p:column> 
-                <p:column sortBy="#{item.descricao}" style="width: 500px"> 
+                <p:column sortBy="#{item.data}" style="width: 50px"> 
                     <f:facet name="header"> 
-                    <h:outputText value="Nome"/> 
+                    <h:outputText value="Data"/> 
                     </f:facet> 
-                    <h:outputText value="#{item.descricao}"/> 
+                    <h:outputText value="#{item.data}"/> 
                 </p:column> 
+                <p:column sortBy="#{item.cliente.nome}" style="width: 250px"> 
+                    <f:facet name="header"> 
+                    <h:outputText value="Data"/> 
+                    </f:facet> 
+                    <h:outputText value="#{item.cliente.nome}"/> 
+                </p:column>
                 <p:column> 
                     <h:commandLink value="Editar" action="#{venda.editar()}">
-                        <f:setPropertyActionListener target="#{venda.id}" value="#{item.id}" />
-                    </h:commandLink>
-                </p:column> 
-                <p:column>                   
-                    <h:commandLink value="Apagar" action="#{venda.apagar()}" onclick="return confirm('Deseja realmente deletar o venda?');">
                         <f:setPropertyActionListener target="#{venda.id}" value="#{item.id}" />
                     </h:commandLink>
                 </p:column>

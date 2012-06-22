@@ -36,6 +36,12 @@
                     </f:facet> 
                     <h:outputText value="#{item.descricao}"/> 
                 </p:column> 
+                <p:column sortBy="#{item.valor}" style="width: 50px"> 
+                    <f:facet name="header"> 
+                    <h:outputText value="Valor"/> 
+                    </f:facet> 
+                    <h:outputText value="#{item.valor}"/> 
+                </p:column> 
                 <p:column> 
                     <h:commandLink value="Editar" action="#{produto.editar()}">
                         <f:setPropertyActionListener target="#{produto.id}" value="#{item.id}" />

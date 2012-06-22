@@ -4,12 +4,12 @@
  */
 package br.edu.fasa.LojaVirtual.presentation.web;
 
-import br.edu.fasa.LojaVirtual.domainModel.Venda;
-import br.edu.fasa.LojaVirtual.domainModel.VendaRepository;
+import br.edu.fasa.LojaVirtual.domainModel.*;
 import java.awt.event.ActionEvent;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 
@@ -28,6 +28,12 @@ public class VendaBean implements Serializable {
         @EJB
         VendaRepository ejb;
         
+        @EJB
+        ClienteRepository cli;
+        
+        @EJB
+        ProdutoRepository prod;
+        
         Venda venda;
     
     public Venda getVenda() {
@@ -37,13 +43,41 @@ public class VendaBean implements Serializable {
     public void setVenda(Venda venda) {
         this.venda = venda;
         this.id = venda.getId().toString();
-        //this.nome = venda.getDescricao();
-        //this.data = venda.getDataNascimento().toString();
+        this.nome = venda.getCliente().getNome();
+        this.data = venda.getData();   
+        this.itens = venda.getItens();
     }
     
     List<Venda> listagem;
+    List<VendaItem> itens;
+
+    public List<VendaItem> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<VendaItem> itens) {
+        this.itens = itens;
+    }
 
     String id, nome, erro, filtro, mensagem;
+    Date data;
+    Cliente cliente;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
 
     public String getMensagem() {
         return mensagem;
@@ -136,7 +170,7 @@ public class VendaBean implements Serializable {
         try {
             checarVendaAberto();
             //venda.setDescricao(nome);
-            //venda.setDataNascimento(data);
+            venda.setData(data);
 
             ejb.Save(venda);
             mensagem = "Venda salvo com sucesso!";
@@ -168,6 +202,15 @@ public class VendaBean implements Serializable {
     private void limparCampos() throws Exception {
         setId("");
         setNome("");
+        setData(null);
+    }
+    
+    public List<Cliente> buscaClientes(String val){
+        return cli.filtrarPorNome(val, 0, 100);
+    }
+    
+    public List<Produto> buscaProdutos(String val){
+        return prod.filtrarPorDescricao(val, 0, 100);
     }
     
     /**

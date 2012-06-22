@@ -44,6 +44,15 @@ public class ProdutoBean implements Serializable {
     List<Produto> listagem;
 
     String id, nome, erro, filtro, mensagem;
+    double valor;
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
 
     public String getMensagem() {
         return mensagem;

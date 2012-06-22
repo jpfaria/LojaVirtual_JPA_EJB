@@ -27,7 +27,7 @@
                     <h:inputText id="txtNome" value="#{produto.nome}" />
 
                     <h:outputText value="Valor:" />
-                    <p:inputMask mask="99999,00" value="" />
+                    <p:inputMask mask="99999,00" value="#{produto.valor}" />
                 </h:panelGrid>    
                 <h:panelGrid columns="3" cellpadding="5">
                     <p:commandButton id="btnSalvar" value="Salvar" onclick="msgSalvar.show()" />
