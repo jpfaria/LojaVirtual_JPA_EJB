@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -50,18 +51,60 @@ public class VendaBean implements Serializable {
     
     List<Venda> listagem;
     List<VendaItem> itens;
+    String id, nome, erro, filtro, mensagem;
+    Date data;
+    Cliente cliente;
+    Produto produto;
+    int quantidade;
+    
+    List<Cliente> clientes;
+    List<Produto> produtos;
 
+    
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+    
     public List<VendaItem> getItens() {
         return itens;
     }
 
-    public void setItens(List<VendaItem> itens) {
-        this.itens = itens;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    String id, nome, erro, filtro, mensagem;
-    Date data;
-    Cliente cliente;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public void setItens(List<VendaItem> itens) {
+        this.itens = itens;
+    }    
+
+    public List<Cliente> getClientes() {
+        if(clientes == null)
+            clientes = cli.getTodos();
+        return clientes;
+    }
+
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    public List<Produto> getProdutos() {
+        if(produtos == null)
+            produtos = prod.getTodos();
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+    
 
     public Cliente getCliente() {
         return cliente;
@@ -206,11 +249,29 @@ public class VendaBean implements Serializable {
     }
     
     public List<Cliente> buscaClientes(String val){
-        return cli.filtrarPorNome(val, 0, 100);
+        List<Cliente> suggestions = new ArrayList<Cliente>();  
+          
+        for(Cliente c : getClientes()) {  
+            if(c.getNome().startsWith(val))  
+                suggestions.add(c);  
+        }  
+          
+        return suggestions;  
     }
     
     public List<Produto> buscaProdutos(String val){
-        return prod.filtrarPorDescricao(val, 0, 100);
+        List<Produto> suggestions = new ArrayList<Produto>();  
+          
+        for(Produto c : getProdutos()) {  
+            if(c.getDescricao().startsWith(val))  
+                suggestions.add(c);  
+        }  
+          
+        return suggestions;  
+    }
+    
+    public void addItem() {
+        venda.addItem(produto, quantidade);
     }
     
     /**

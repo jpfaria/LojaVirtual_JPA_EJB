@@ -25,18 +25,18 @@
                         <h:outputText id="lblId" value="#{venda.id}" />
 
                         <h:outputText value="Nome:" />
-                        <p:autoComplete id="txtNome" value="#{venda.nome}"   
-                                        completeMethod="#{venda.buscaClientes}"/> 
+                        <p:autoComplete value="#{venda.cliente}" id="customPojo" completeMethod="#{venda.buscaClientes}"  
+                                        converter="ClienteConverter" var="p" itemLabel="#{p.nome}" itemValue="#{p}" />  
 
                         <h:outputText value="Data:" />
                         <p:calendar value="#{venda.data}" id="popupCal" /> 
                     </h:panelGrid>
                     <p:dataTable id="tblItens"  value="#{venda.itens}" var="item">
                         <f:facet name="header">                      
-                            Produto:<p:autoComplete id="txtItem" value="#{venda.nome}"   
-                                        completeMethod="#{venda.buscaClientes}"/> 
-                            Quantidade: <p:inputMask mask="99" />
-                            <p:commandButton value="Adicionar" />
+                            Produto: <p:autoComplete value="#{venda.produto}" id="buscaProduto" completeMethod="#{venda.buscaProdutos}"  
+                                        converter="ProdutoConverter" var="p" itemLabel="#{p.descricao}" itemValue="#{p}" />  
+                            Quantidade: <p:inputMask value="#{venda.quantidade}"  mask="99" />
+                            <p:commandButton value="Adicionar" action="#{venda.addItem}" />
                         </f:facet>                       
                         <p:column sortBy="#{item.produto.descricao}"> 
                             <f:facet name="header"> 
