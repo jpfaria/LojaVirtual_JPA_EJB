@@ -44,7 +44,8 @@ public class VendaBean implements Serializable {
     public void setVenda(Venda venda) {
         this.venda = venda;
         this.id = venda.getId().toString();
-        this.nome = venda.getCliente().getNome();
+        if(venda.getCliente() != null)
+            this.nome = venda.getCliente().getNome();
         this.data = venda.getData();   
         this.itens = venda.getItens();
     }
@@ -203,16 +204,17 @@ public class VendaBean implements Serializable {
      }
     
     public void abrir() throws Exception {
-        if(id.length() > 0 && id != "0"){
+        if(id.length() > 0 && !id.equals("0")){
             long cod = Long.parseLong(id);
-            setVenda(ejb.Open(cod));
+            if(venda == null || (venda != null && venda.getId() != cod ) )
+                setVenda(ejb.Open(cod));            
         }
     }
     
     public void salvar() throws Exception {
         try {
             checarVendaAberto();
-            //venda.setDescricao(nome);
+            venda.setCliente(cliente);
             venda.setData(data);
 
             ejb.Save(venda);
@@ -270,8 +272,12 @@ public class VendaBean implements Serializable {
         return suggestions;  
     }
     
-    public void addItem() {
+    public void addItem() throws Exception {
         venda.addItem(produto, quantidade);
+        setItens(venda.getItens());
+        produto = null;
+        quantidade = 0;
+        salvar();
     }
     
     /**

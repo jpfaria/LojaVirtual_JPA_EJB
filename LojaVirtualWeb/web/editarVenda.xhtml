@@ -36,7 +36,7 @@
                             Produto: <p:autoComplete value="#{venda.produto}" id="buscaProduto" completeMethod="#{venda.buscaProdutos}"  
                                         converter="ProdutoConverter" var="p" itemLabel="#{p.descricao}" itemValue="#{p}" />  
                             Quantidade: <p:inputMask value="#{venda.quantidade}"  mask="99" />
-                            <p:commandButton value="Adicionar" action="#{venda.addItem}" />
+                            <p:commandButton id="addItem" update="tblItens" value="Adicionar" action="#{venda.addItem()}" />
                         </f:facet>                       
                         <p:column sortBy="#{item.produto.descricao}"> 
                             <f:facet name="header"> 

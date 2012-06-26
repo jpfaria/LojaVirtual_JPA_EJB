@@ -22,25 +22,25 @@
                 <f:facet name="header">                      
                     <h:commandLink value="Novo venda" action="#{venda.novo()}" />
                 </f:facet>
-                <p:column sortBy="#{item.id}" > 
+                <p:column  sortBy="#{item.id}" style="width: 50px" > 
                     <f:facet name="header"> 
                         <h:outputText value="ID" /> 
                     </f:facet> 
                     <h:outputText value="#{item.id}"/> 
                 </p:column> 
-                <p:column sortBy="#{item.data}" style="width: 50px"> 
+                <p:column filterBy="#{item.data}" sortBy="#{item.data}" style="width: 70px"> 
                     <f:facet name="header"> 
                     <h:outputText value="Data"/> 
                     </f:facet> 
                     <h:outputText value="#{item.data}"/> 
                 </p:column> 
-                <p:column sortBy="#{item.cliente.nome}" style="width: 250px"> 
+                <p:column filterBy="#{item.cliente.nome}" sortBy="#{item.cliente.nome}" > 
                     <f:facet name="header"> 
-                    <h:outputText value="Data"/> 
+                    <h:outputText value="Nome"/> 
                     </f:facet> 
                     <h:outputText value="#{item.cliente.nome}"/> 
                 </p:column>
-                <p:column> 
+                <p:column style="width: 50px"> 
                     <h:commandLink value="Editar" action="#{venda.editar()}">
                         <f:setPropertyActionListener target="#{venda.id}" value="#{item.id}" />
                     </h:commandLink>
