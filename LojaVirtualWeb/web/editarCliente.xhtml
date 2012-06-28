@@ -25,10 +25,10 @@
                     <h:outputText id="lblId" value="#{cliente.id}" />
 
                     <h:outputText value="Nome:" />
-                    <h:inputText id="txtNome" value="#{cliente.nome}" />
+                    <h:inputText id="txtNome" value="#{cliente.nome}" required="true" requiredMessage="Informe o nome!" />
 
                     <h:outputText value="Data Nascimento:" />
-                    <p:calendar value="#{cliente.data}" id="popupCal" /> 
+                    <p:calendar value="#{cliente.data}" id="popupCal" required="true" requiredMessage="Informe a data de nascimento!" /> 
                 </h:panelGrid>    
                 <h:panelGrid columns="3" cellpadding="5">
                     <p:commandButton id="btnSalvar" value="Salvar" onclick="msgSalvar.show()" />

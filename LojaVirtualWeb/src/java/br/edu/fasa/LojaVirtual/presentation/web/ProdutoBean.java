@@ -6,7 +6,6 @@ package br.edu.fasa.LojaVirtual.presentation.web;
 
 import br.edu.fasa.LojaVirtual.domainModel.Produto;
 import br.edu.fasa.LojaVirtual.domainModel.ProdutoRepository;
-import java.awt.event.ActionEvent;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -38,19 +37,19 @@ public class ProdutoBean implements Serializable {
         this.produto = produto;
         this.id = produto.getId().toString();
         this.nome = produto.getDescricao();
-        //this.data = produto.getDataNascimento().toString();
+        this.valor = produto.getValor();
     }
     
     List<Produto> listagem;
 
     String id, nome, erro, filtro, mensagem;
-    double valor;
+    Double valor;
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
@@ -137,7 +136,8 @@ public class ProdutoBean implements Serializable {
     public void abrir() throws Exception {
         if(id.length() > 0 && id != "0"){
             long cod = Long.parseLong(id);
-            setProduto(ejb.Open(cod));
+            if(produto == null || (produto != null && produto.getId() != cod ) )
+                setProduto(ejb.Open(cod));
         }
     }
     
@@ -145,7 +145,7 @@ public class ProdutoBean implements Serializable {
         try {
             checarProdutoAberto();
             produto.setDescricao(nome);
-            //produto.setDataNascimento(data);
+            produto.setValor(valor);
 
             ejb.Save(produto);
             mensagem = "Produto salvo com sucesso!";
@@ -154,11 +154,7 @@ public class ProdutoBean implements Serializable {
             mensagem = "Houve um erro ao tentar salvar o produto! Consulte o log do sistema!";                            
         }
     }
-    
-    public void evtSalvar(ActionEvent evt) throws Exception {
-        salvar();
-    }
-    
+        
     public String apagar() throws Exception {
         try {
             checarProdutoAberto();             
@@ -177,6 +173,7 @@ public class ProdutoBean implements Serializable {
     private void limparCampos() throws Exception {
         setId("");
         setNome("");
+        setValor(new Double(0));
     }
     
     /**

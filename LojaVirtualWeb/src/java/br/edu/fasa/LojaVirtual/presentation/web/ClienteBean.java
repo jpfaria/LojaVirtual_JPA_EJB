@@ -135,7 +135,8 @@ public class ClienteBean implements Serializable {
     public void abrir() throws Exception {
         if(id.length() > 0 && id != "0"){
             long cod = Long.parseLong(id);
-            setCliente(ejb.Open(cod));
+            if(cliente == null || (cliente != null && cliente.getId() != cod ) )
+                setCliente(ejb.Open(cod));
         }
     }
     

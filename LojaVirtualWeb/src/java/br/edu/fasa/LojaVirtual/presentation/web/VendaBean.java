@@ -45,7 +45,7 @@ public class VendaBean implements Serializable {
         this.venda = venda;
         this.id = venda.getId().toString();
         if(venda.getCliente() != null)
-            this.nome = venda.getCliente().getNome();
+            this.cliente = venda.getCliente();
         this.data = venda.getData();   
         this.itens = venda.getItens();
     }
@@ -56,7 +56,7 @@ public class VendaBean implements Serializable {
     Date data;
     Cliente cliente;
     Produto produto;
-    int quantidade;
+    Integer quantidade;
     
     List<Cliente> clientes;
     List<Produto> produtos;
@@ -74,11 +74,11 @@ public class VendaBean implements Serializable {
         return itens;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 

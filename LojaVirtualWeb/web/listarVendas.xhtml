@@ -32,7 +32,9 @@
                     <f:facet name="header"> 
                     <h:outputText value="Data"/> 
                     </f:facet> 
-                    <h:outputText value="#{item.data}"/> 
+                    <h:outputText value="#{item.data}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
                 </p:column> 
                 <p:column filterBy="#{item.cliente.nome}" sortBy="#{item.cliente.nome}" > 
                     <f:facet name="header"> 

@@ -12,12 +12,13 @@
     <h:body>
         <ui:include src="cabecalho.xhtml" />
         <h:form>
+            <!-- BreaCrumb -->
             <p:breadCrumb>  
                 <p:menuitem value="Principal" url="/" />
                 <p:menuitem value="Gerenciar Vendas" url="faces/listarVendas.xhtml" />  
                 <p:menuitem value="Editar Venda" url="#" />  
             </p:breadCrumb>
-            <p:growl id="messages" />  
+            <p:messages id="messages" />  
             <p:panel id="dados" header="Editar dados da venda">
                 <h:panelGrid columns="2" cellpadding="5" cellspacing="5" border="2"> 
                     <h:panelGrid columns="2" cellpadding="5">  
@@ -25,16 +26,23 @@
                         <h:outputText id="lblId" value="#{venda.id}" />
 
                         <h:outputText value="Nome:" />
-                        <p:autoComplete value="#{venda.cliente}" id="customPojo" completeMethod="#{venda.buscaClientes}"  
-                                        converter="ClienteConverter" var="p" itemLabel="#{p.nome}" itemValue="#{p}" />  
-
+                        <p:inplace id="inCliente" emptyLabel="CLIENTE" editor="true">
+                            <p:autoComplete value="#{venda.cliente}" id="customPojo" completeMethod="#{venda.buscaClientes}"  
+                                            converter="ClienteConverter" var="p" itemLabel="#{p.nome}" itemValue="#{p}"
+                                            required="true" requiredMessage="Informe o cliente!"/>  
+                        </p:inplace>
                         <h:outputText value="Data:" />
-                        <p:calendar value="#{venda.data}" id="popupCal" /> 
+                        <p:inplace id="inData" editor="true">
+                            <p:calendar value="#{venda.data}" id="popupCal" required="true" requiredMessage="Informe a data!">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </p:calendar>
+                        </p:inplace>
                     </h:panelGrid>
                     <p:dataTable id="tblItens"  value="#{venda.itens}" var="item">
                         <f:facet name="header">                      
                             Produto: <p:autoComplete value="#{venda.produto}" id="buscaProduto" completeMethod="#{venda.buscaProdutos}"  
-                                        converter="ProdutoConverter" var="p" itemLabel="#{p.descricao}" itemValue="#{p}" />  
+                                        converter="ProdutoConverter" var="p" itemLabel="#{p.descricao}" itemValue="#{p}"
+                                        />  
                             Quantidade: <p:inputMask value="#{venda.quantidade}"  mask="99" />
                             <p:commandButton id="addItem" update="tblItens" value="Adicionar" action="#{venda.addItem()}" />
                         </f:facet>                       

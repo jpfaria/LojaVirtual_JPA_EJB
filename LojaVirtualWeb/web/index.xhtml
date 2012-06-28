@@ -20,13 +20,25 @@
             <br />
             <h:panelGrid columns="3" cellpadding="5">
                 <p:panel header="Gerenciamento de Clientes">  
-                    <h:outputText value="Pesquise e gerencie clientes com facilidade" />  
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <h:outputText value="Pesquise e gerencie clientes com facilidade" /> 
+                        <h:link value="Gerenciar Clientes" outcome="faces/listarClientes.xhtml" />  
+                        <h:commandLink value="Novo Cliente" action="#{cliente.novo()}" />
+                    </h:panelGrid>
                 </p:panel>  
                 <p:panel header="Gerenciamento de Produtos">  
-                    <h:outputText value="Cadastre e administre os produtos" />  
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <h:outputText value="Cadastre e administre os produtos" />  
+                        <h:link value="Listar Produtos" outcome="faces/listarProdutos.xhtml" />  
+                        <h:commandLink value="Novo Produto" action="#{produto.novo()}" />
+                    </h:panelGrid>
                 </p:panel>  
                 <p:panel header="Gerenciamento de Vendas">  
-                    <h:outputText value="Análise de vendas" />  
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <h:outputText value="Análise de vendas" />  
+                        <h:link value="Listar Vendas" outcome="faces/listarVendas.xhtml" />  
+                        <h:commandLink value="Novo Venda" action="#{venda.novo()}" />
+                    </h:panelGrid>
                 </p:panel>  
             </h:panelGrid>
         </h:form>

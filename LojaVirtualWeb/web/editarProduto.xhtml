@@ -17,17 +17,19 @@
                 <p:menuitem value="Gerenciar Produtos" url="faces/listarProdutos.xhtml" />  
                 <p:menuitem value="Editar Produto" url="#" />  
             </p:breadCrumb>
-            <p:growl id="messages" />  
+            <p:message id="messages" />  
             <p:panel id="dados" header="Editar dados do produto">
                 <h:panelGrid columns="2" cellpadding="5">  
                     <h:outputText value="ID:" />
                     <h:outputText id="lblId" value="#{produto.id}" />
 
-                    <h:outputText value="Nome:" />
-                    <h:inputText id="txtNome" value="#{produto.nome}" />
+                    <h:outputText value="Descrição:" />
+                    <h:inputText id="txtNome" value="#{produto.nome}" required="true" requiredMessage="Informe a descrição do produto!" />
 
                     <h:outputText value="Valor:" />
-                    <p:inputMask mask="99999,00" value="#{produto.valor}" />
+                    <p:inputMask id="txtValor" mask="99,00" value="#{produto.valor}" required="true" requiredMessage="Informe o valor!">
+                        <f:convertNumber currencySymbol="R$" id="converter" type="currency" />
+                    </p:inputMask>
                 </h:panelGrid>    
                 <h:panelGrid columns="3" cellpadding="5">
                     <p:commandButton id="btnSalvar" value="Salvar" onclick="msgSalvar.show()" />
@@ -39,7 +41,7 @@
             <p:confirmDialog id="dlgSalvar" message="Deseja realmente salvar os dados?"  
                              header="Cofirmar" modal="true" severity="alert" widgetVar="msgSalvar">
                 <p:commandButton id="confirmS" value="Sim" oncomplete="msgSalvar.hide(); msgSalvo.show()"  
-                          update="dados" action="#{produto.salvar()}" />  
+                          update="messages,dados" action="#{produto.salvar()}" />  
                 <p:commandButton id="declineS" value="Não" onclick="msgSalvar.hide()" type="button" />   
             </p:confirmDialog>  
             
