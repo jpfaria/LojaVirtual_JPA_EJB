@@ -26,13 +26,13 @@
                         <h:outputText id="lblId" value="#{venda.id}" />
 
                         <h:outputText value="Nome:" />
-                        <p:inplace id="inCliente" emptyLabel="CLIENTE" editor="true">
+                        <p:inplace id="inCliente" emptyLabel="[CLIQUE PARA INFORMAR O CLIENTE]" editor="true">
                             <p:autoComplete value="#{venda.cliente}" id="customPojo" completeMethod="#{venda.buscaClientes}"  
                                             converter="ClienteConverter" var="p" itemLabel="#{p.nome}" itemValue="#{p}"
                                             required="true" requiredMessage="Informe o cliente!"/>  
                         </p:inplace>
                         <h:outputText value="Data:" />
-                        <p:inplace id="inData" editor="true">
+                        <p:inplace id="inData" emptyLabel="[CLIQUE PARA INFORMAR A DATA]" editor="true">
                             <p:calendar value="#{venda.data}" id="popupCal" required="true" requiredMessage="Informe a data!">
                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                             </p:calendar>

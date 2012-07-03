@@ -42,14 +42,19 @@
                     </h:commandLink>
                 </p:column> 
                 <p:column>                   
-                    <h:commandLink value="Apagar" action="#{cliente.apagar()}" onclick="return confirm('Deseja realmente deletar o cliente?');">
+                    <h:commandLink value="Apagar" onclick="msgApagar.show()" >
                         <f:setPropertyActionListener target="#{cliente.id}" value="#{item.id}" />
                     </h:commandLink>
                 </p:column>
                 <f:facet name="footer">  
                     Total: #{cliente.listagem.size()}.  
                 </f:facet>
-            </p:dataTable>            
+            </p:dataTable>
+             <p:confirmDialog id="dlgApagar" message="Deseja realmente apagar os dados?"  
+                header="Cofirmar" modal="true"  severity="alert" widgetVar="msgApagar">
+                <p:commandButton id="confirmA" ajax="false" value="Sim"  action="#{cliente.apagar()}" />  
+                <p:commandButton id="declineA" value="Não" onclick="msgApagar.hide()" type="button" />   
+            </p:confirmDialog>
         </h:form>
     </h:body>
 </html>

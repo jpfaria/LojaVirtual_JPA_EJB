@@ -149,6 +149,7 @@ public class ProdutoBean implements Serializable {
 
             ejb.Save(produto);
             mensagem = "Produto salvo com sucesso!";
+            listagem = null;
         }
         catch(Exception ex) {
             mensagem = "Houve um erro ao tentar salvar o produto! Consulte o log do sistema!";                            

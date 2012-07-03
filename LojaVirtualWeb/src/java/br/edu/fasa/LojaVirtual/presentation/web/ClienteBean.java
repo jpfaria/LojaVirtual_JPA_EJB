@@ -26,8 +26,13 @@ public class ClienteBean implements Serializable {
     @EJB
     ClienteRepository ejb;
     
-    Cliente cliente;
+    Cliente cliente;    
     
+    List<Cliente> listagem;
+
+    String id, nome, erro, filtro, mensagem;
+    Date data;
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -36,13 +41,9 @@ public class ClienteBean implements Serializable {
         this.cliente = cliente;
         this.id = cliente.getId().toString();
         this.nome = cliente.getNome();
-        //this.data = cliente.getDataNascimento().toString();
+        this.data = cliente.getDataNascimento();
     }
     
-    List<Cliente> listagem;
-
-    String id, nome, erro, filtro, mensagem;
-
     public String getMensagem() {
         return mensagem;
     }
@@ -50,7 +51,7 @@ public class ClienteBean implements Serializable {
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
     }
-    Date data;
+    
 
     public Date getData() {
         return data;

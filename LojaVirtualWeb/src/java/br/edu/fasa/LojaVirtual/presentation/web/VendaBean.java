@@ -219,6 +219,7 @@ public class VendaBean implements Serializable {
 
             ejb.Save(venda);
             mensagem = "Venda salvo com sucesso!";
+            listagem = null;
         }
         catch(Exception ex) {
             mensagem = "Houve um erro ao tentar salvar o venda! Consulte o log do sistema!";                            
@@ -248,6 +249,8 @@ public class VendaBean implements Serializable {
         setId("");
         setNome("");
         setData(null);
+        setCliente(null);
+        setItens(null);
     }
     
     public List<Cliente> buscaClientes(String val){
